@@ -4,8 +4,6 @@ slug: "cups"
 description: "Printserver"
 arch:
   - amd64
-startup: "application"
-boot: "auto"
 ports:
   631/tcp: 631
 ports_description:
