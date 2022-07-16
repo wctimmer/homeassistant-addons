@@ -1,0 +1,28 @@
+name: "CUPS printserver"
+version: "0.9"
+slug: "cups"
+description: "Printserver"
+arch:
+  - amd64
+startup: "application"
+boot: "auto"
+ports:
+  631/tcp: 631
+ports_description:
+  631/tcp: "CUPS Web interface"
+options:
+  user: "admin"
+  passwd: "pass"
+schema:
+  user: "str"
+  passwd: "password"
+map: 
+  - config:rw
+ingress: true
+ingress_stream: true
+#host_network: true
+#host_dbus: true
+init: false
+
+ 
+
