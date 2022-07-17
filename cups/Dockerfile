@@ -21,19 +21,9 @@ RUN \
   \
   && mkdir -p /run/nginx
 
-#Copy our conf into the nginx http.d folder.
-#COPY ingress.conf /etc/nginx/http.d/
-RUN rm -f /etc/nginx/http.d/default.conf
-
-#Launch nginx with debug options.
-#CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
 COPY rootfs /
-#ADD root /
-#RUN chmod +x /root/*
 
-#Run Script
-#CMD ["/root/run_cups.sh"]
 
 # Baked-in config file changes
 RUN sed -i 's/Listen localhost:631/Listen 0.0.0.0:631/' /etc/cups/cupsd.conf && \

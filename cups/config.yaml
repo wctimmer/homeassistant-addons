@@ -1,5 +1,5 @@
 name: "CUPS printserver"
-version: "0.9"
+version: "0.9.01"
 slug: "cups"
 description: "Printserver"
 arch:
@@ -14,13 +14,10 @@ options:
 schema:
   user: "str"
   passwd: "password"
-map: 
+map:
   - config:rw
 ingress: true
 ingress_stream: true
-#host_network: true
-#host_dbus: true
+host_network: true
+host_dbus: true
 init: false
-
- 
-
