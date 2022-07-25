@@ -1,9 +1,15 @@
 name: "CUPS printserver"
-version: "0.9.01"
+version: "0.10"
 slug: "cups"
 description: "Printserver"
 arch:
   - amd64
+  - armhf
+  - armv7 
+  - aarch64
+  - i386
+startup: "application"
+boot: "auto"
 ports:
   631/tcp: 631
 ports_description:
@@ -14,10 +20,11 @@ options:
 schema:
   user: "str"
   passwd: "password"
-map:
+map: 
   - config:rw
 ingress: true
 ingress_stream: true
+ingress_port: 0
 host_network: true
 host_dbus: true
 init: false
