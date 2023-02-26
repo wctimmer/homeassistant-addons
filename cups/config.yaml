@@ -8,8 +8,6 @@ arch:
   - armv7 
   - aarch64
   - i386
-startup: "application"
-boot: "auto"
 ports:
   631/tcp: 631
 ports_description:
