@@ -6,5 +6,6 @@ while read -r directory events filename; do
 		/opt/airprint-generate.py -d /data/services
 		cp /etc/cups/printers.conf /data/config/printers.conf
 		rsync -avh /data/services/ /etc/avahi/services/
+        echo "Update Airprint services"
 	fi
 done

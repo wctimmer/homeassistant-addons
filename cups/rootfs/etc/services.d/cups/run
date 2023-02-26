@@ -4,49 +4,16 @@
 CUPSADMIN=$(bashio::config 'user')
 CUPSPASSWORD=$(bashio::config 'passwd')
 
+
+
 if [ $(grep -ci $CUPSADMIN /etc/shadow) -eq 0 ]; then
     adduser -S -G lpadmin -H $CUPSADMIN 
 fi
-
 echo $CUPSADMIN:$CUPSPASSWORD | chpasswd
 
 
-#Link locations
-if [ ! -d "/data/config/cups" ]; then
-  echo Prepare first use
-  mkdir -p /data/config/cups
-  mv /etc/cups/* /data/config/cups/
-
-fi
-if [ -d "/etc/cups" ]; then
-  rm -R /etc/cups
-fi
-
-
-ln -s /data/config/cups /etc/
-
-# Create directories when not exist
-mkdir -p /data/config/ppd
-mkdir -p /data/services
-
-# clean directories before linking
-rm -rf /etc/avahi/services/*
-rm -rf /etc/cups/ppd
-
-# link dirs
-ln -s /data/config/ppd /etc/cups
-if [ `ls -l /data/services/*.service 2>/dev/null | wc -l` -gt 0 ]; then
-	cp -f /data/services/*.service /etc/avahi/services/
-fi
-if [ `ls -l /data/config/printers.conf 2>/dev/null | wc -l` -eq 0 ]; then
-    touch /data/config/printers.conf
-fi
-
 # copy config
-# cp /data/config/printers.conf /etc/cups/printers.conf
-
-/usr/sbin/avahi-daemon --daemonize
-/opt/printer-update.sh &
-nginx -g "daemon off;error_log /dev/stdout debug;" &
-exec /usr/sbin/cupsd -f
-
+cp /data/config/printers.conf /etc/cups/printers.conf
+/usr/sbin/cupsd -t
+/usr/sbin/cupsd 
+/opt/printer-update.sh
